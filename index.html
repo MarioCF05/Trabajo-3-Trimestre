@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cuestionario Interactivo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="menuPrincipal">
+    <h1 class="tituloprincipal">Cuestionario Motos&Coches</h1>
+    <p>Idioma antes de comenzar</p>
+    <select id="idioma" onchange="cambiarIdioma()">
+      <option value="preguntas_ES.xml">Español</option>
+      <option value="preguntas_EN.xml">English</option>
+    </select>
+    <button onclick="iniciarCuestionario()">Comenzar</button>
+  </div>
+
+  <div id="cuestionario" style="display: none;">
+    <div id="contenedorPreguntas"></div>
+    <div id="puntuacion" style="display: none;">Tu puntuación fue: 0</div>
+    <div id="tiempo">Tiempo: 0s</div>
+
+    <div class="fila-botones">
+      <button id="botonCorregir" onclick="corregirPregunta()">Corregir</button>
+      <button id="botonSiguiente" onclick="mostrarSiguiente()">Siguiente</button>
+    </div>
+
+    <div class="boton-final">
+      <button id="botonFinalizar" onclick="finalizarCuestionario()">Finalizar</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
