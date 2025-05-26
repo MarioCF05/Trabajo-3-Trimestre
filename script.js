@@ -1,18 +1,22 @@
-let documentoXML, preguntas, actual = 0;
+// Variables globales para controlar estado del cuestionario, puntuación y tiempo
+let documentoXML, preguntas, actual = 0; 
 let puntuacion = 0, tiempo = 0, temporizador;
 let cuestionarioActivo = false;
 let respuestaSeleccionada = null;
 
+// Función para dar formato legible al tiempo (minutos y segundos)
 function formatearTiempo(segundos) {
   const mins = Math.floor(segundos / 60);
   const segs = segundos % 60;
   return `${mins}m ${segs < 10 ? '0' : ''}${segs}s`;
 }
 
+// Muestra el estado actualizado (tiempo transcurrido) en la interfaz
 function actualizarEstado(puntos = 0, segundos = 0) {
   document.getElementById("tiempo").innerText = `Tiempo: ${formatearTiempo(segundos)}`;
 }
 
+// Inicia el temporizador que aumenta el contador de tiempo cada segundo
 function iniciarTemporizador() {
   temporizador = setInterval(() => {
     tiempo++;
@@ -20,12 +24,14 @@ function iniciarTemporizador() {
   }, 1000);
 }
 
+// Muestra u oculta botones de navegación según el momento del cuestionario
 function mostrarBotones({siguiente = true, corregir = true, finalizar = true} = {}) {
   document.getElementById("botonSiguiente").classList.toggle("oculto", !siguiente);
   document.getElementById("botonCorregir").classList.toggle("oculto", !corregir);
   document.getElementById("botonFinalizar").classList.toggle("oculto", !finalizar);
 }
 
+// Reinicia el cuestionario a su estado inicial (contador, respuestas, etc.)
 function reiniciarCuestionario() {
   actual = 0;
   puntuacion = 0;
@@ -34,6 +40,7 @@ function reiniciarCuestionario() {
   actualizarEstado();
 }
 
+// Comienza el cuestionario: oculta el menú, carga preguntas, inicia temporizador
 function iniciarCuestionario() {
   document.getElementById("menuPrincipal").style.display = "none";
   document.getElementById("cuestionario").style.display = "block";
@@ -47,6 +54,7 @@ function iniciarCuestionario() {
   });
 }
 
+// Carga el archivo XML correspondiente al idioma seleccionado y extrae las preguntas
 function cargarPreguntas(callback) {
   const archivo = document.getElementById("idioma").value;
   const xhttp = new XMLHttpRequest();
@@ -59,6 +67,7 @@ function cargarPreguntas(callback) {
   xhttp.send();
 }
 
+// Muestra la pregunta actual y sus opciones en pantalla
 function mostrarPregunta() {
   const pregunta = preguntas[actual];
   if (!pregunta) return;
@@ -81,6 +90,7 @@ function mostrarPregunta() {
   document.getElementById("contenedorPreguntas").innerHTML = html;
 }
 
+// Marca la opción que el usuario ha seleccionado
 function seleccionarRespuesta(elemento, esCorrecta) {
   const opciones = document.querySelectorAll(".opcion");
   opciones.forEach(op => op.classList.remove("selected"));
@@ -89,6 +99,7 @@ function seleccionarRespuesta(elemento, esCorrecta) {
   respuestaSeleccionada = { elemento, esCorrecta };
 }
 
+// Corrige la respuesta seleccionada: muestra si es correcta o no y resalta la correcta
 function corregirPregunta() {
   if (respuestaSeleccionada === null) return;
 
@@ -108,6 +119,7 @@ function corregirPregunta() {
   opciones.forEach(op => op.onclick = null);
 }
 
+// Devuelve el texto de la respuesta correcta para la pregunta actual
 function obtenerRespuestaCorrecta() {
   const opciones = preguntas[actual].getElementsByTagName("choice");
   for (let i = 0; i < opciones.length; i++) {
@@ -117,6 +129,7 @@ function obtenerRespuestaCorrecta() {
   }
 }
 
+// Avanza a la siguiente pregunta si existe, y reinicia la selección
 function mostrarSiguiente() {
   if (respuestaSeleccionada && respuestaSeleccionada.esCorrecta) {
     puntuacion++;
@@ -129,6 +142,7 @@ function mostrarSiguiente() {
   }
 }
 
+// Finaliza el cuestionario: detiene temporizador, muestra puntuación y mensaje final
 function finalizarCuestionario() {
   clearInterval(temporizador);
   cuestionarioActivo = false;
