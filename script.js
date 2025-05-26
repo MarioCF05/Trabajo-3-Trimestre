@@ -3,14 +3,14 @@ let puntuacion = 0, tiempo = 0, temporizador;
 let cuestionarioActivo = false;
 let respuestaSeleccionada = null;
 
-// 🕓 Formatea el tiempo en "Xm YYs"
+// Formatea el tiempo en "Xm YYs"
 function formatearTiempo(segundos) {
   const mins = Math.floor(segundos / 60);
   const segs = segundos % 60;
   return `${mins}m ${segs < 10 ? '0' : ''}${segs}s`;
 }
 
-// ⏱️ Actualiza el contador de tiempo en pantalla
+// Actualiza el contador de tiempo en pantalla
 function actualizarEstado(puntos = 0, segundos = 0) {
   document.getElementById("tiempo").innerText = `Tiempo: ${formatearTiempo(segundos)}`;
 }
@@ -23,14 +23,14 @@ function iniciarTemporizador() {
   }, 1000);
 }
 
-// 🎛️ Muestra u oculta botones según el estado del cuestionario
+// Muestra u oculta botones según el estado del cuestionario
 function mostrarBotones({siguiente = true, corregir = true, finalizar = true} = {}) {
   document.getElementById("botonSiguiente").style.display = siguiente ? "inline-block" : "none";
   document.getElementById("botonCorregir").style.display = corregir ? "inline-block" : "none";
   document.getElementById("botonFinalizar").style.display = finalizar ? "inline-block" : "none";
 }
 
-// 🔄 Reinicia el cuestionario a su estado inicial
+// Reinicia el cuestionario a su estado inicial
 function reiniciarCuestionario() {
   actual = 0;
   puntuacion = 0;
@@ -39,7 +39,7 @@ function reiniciarCuestionario() {
   actualizarEstado();
 }
 
-// ▶️ Inicia el cuestionario al pulsar "Comenzar"
+// Inicia el cuestionario al pulsar "Comenzar"
 function iniciarCuestionario() {
   document.getElementById("menuPrincipal").style.display = "none";
   document.getElementById("cuestionario").style.display = "block";
@@ -53,7 +53,7 @@ function iniciarCuestionario() {
   });
 }
 
-// 📄 Carga el archivo XML con las preguntas
+// Carga el archivo XML con las preguntas
 function cargarPreguntas(callback) {
   const archivo = document.getElementById("idioma").value;
   const xhttp = new XMLHttpRequest();
@@ -66,7 +66,7 @@ function cargarPreguntas(callback) {
   xhttp.send();
 }
 
-// ❓ Muestra una pregunta y sus opciones
+// Muestra una pregunta y sus opciones
 function mostrarPregunta() {
   const pregunta = preguntas[actual];
   if (!pregunta) return;
@@ -93,7 +93,7 @@ function mostrarPregunta() {
   });
 }
 
-// ✅ Marca una opción como seleccionada
+//  Marca una opción como seleccionada
 function seleccionarRespuesta(elemento, esCorrecta) {
   const opciones = document.querySelectorAll(".opcion");
   opciones.forEach(op => op.classList.remove("selected"));
@@ -102,7 +102,7 @@ function seleccionarRespuesta(elemento, esCorrecta) {
   respuestaSeleccionada = { elemento, esCorrecta };
 }
 
-// ✔️ Corrige la respuesta seleccionada y muestra visualmente si fue correcta o no
+//  Corrige la respuesta seleccionada y muestra visualmente si fue correcta o no
 function corregirPregunta() {
   if (respuestaSeleccionada === null) return;
 
@@ -133,7 +133,7 @@ function obtenerRespuestaCorrecta() {
   }
 }
 
-// ➡️ Muestra la siguiente pregunta
+//  Muestra la siguiente pregunta
 function mostrarSiguiente() {
   if (respuestaSeleccionada && respuestaSeleccionada.esCorrecta) {
     puntuacion++;
@@ -146,7 +146,7 @@ function mostrarSiguiente() {
   }
 }
 
-// 🏁 Finaliza el cuestionario y muestra resultado
+//  Finaliza el cuestionario y muestra resultado
 function finalizarCuestionario() {
   clearInterval(temporizador);
   cuestionarioActivo = false;
