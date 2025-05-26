@@ -3,159 +3,159 @@
 <wording>¿Qué coche japonés es conocido como "Godzilla"?</wording>
 <choices>
 <choice>Toyota Supra</choice>
-<choice correct="yes">Nissan GT-R</choice>
 <choice>Mazda RX-8</choice>
+<choice correct="yes">Nissan GT-R</choice>
 </choices>
 </question>
 <question id="2">
-<wording>¿Qué significa “CBR” en los modelos Honda CBR?</wording>
+<wording>¿Qué significan las siglas "CBR" en los modelos Honda CBR?</wording>
 <choices>
-<choice>Compact Bike Racing</choice>
 <choice>Cross Beam Roadster</choice>
 <choice correct="yes">City Bike Racer</choice>
+<choice>Compact Bike Racing</choice>
 </choices>
 </question>
 <question id="3">
-<wording>¿Qué marca produce la moto Hayabusa?</wording>
+<wording>¿Qué marca produce la motocicleta Hayabusa?</wording>
 <choices>
+<choice>Kawasaki</choice>
 <choice>Yamaha</choice>
 <choice correct="yes">Suzuki</choice>
-<choice>Kawasaki</choice>
 </choices>
 </question>
 <question id="4">
 <wording>¿Qué modelo de Mazda es famoso por su motor rotativo?</wording>
 <choices>
+<choice>323F</choice>
 <choice correct="yes">RX-7</choice>
 <choice>MX-5</choice>
-<choice>323F</choice>
 </choices>
 </question>
 <question id="5">
-<wording>¿Qué coche fue protagonista en Tokyo Drift?</wording>
+<wording>¿Qué coche apareció en "Tokyo Drift"?</wording>
 <choices>
-<choice>Toyota AE86</choice>
 <choice>Mazda MX-5</choice>
 <choice correct="yes">Nissan 350Z</choice>
+<choice>Toyota AE86</choice>
 </choices>
 </question>
 <question id="6">
-<wording>¿Qué empresa japonesa fabrica la línea de motos “Ninja”?</wording>
+<wording>¿Qué empresa japonesa fabrica la línea de motos "Ninja"?</wording>
 <choices>
-<choice correct="yes">Kawasaki</choice>
 <choice>Honda</choice>
 <choice>Yamaha</choice>
+<choice correct="yes">Kawasaki</choice>
 </choices>
 </question>
 <question id="7">
 <wording>¿Qué marca fabrica el modelo Supra?</wording>
 <choices>
+<choice correct="yes">Toyota</choice>
 <choice>Nissan</choice>
 <choice>Honda</choice>
-<choice correct="yes">Toyota</choice>
 </choices>
 </question>
 <question id="8">
 <wording>¿Cuál fue el primer coche producido en masa por Toyota?</wording>
 <choices>
-<choice>Corolla</choice>
-<choice correct="yes">Toyoda AA</choice>
 <choice>Crown</choice>
+<choice correct="yes">Toyoda AA</choice>
+<choice>Corolla</choice>
 </choices>
 </question>
 <question id="9">
 <wording>¿Qué marca lanzó la moto deportiva R1?</wording>
 <choices>
-<choice correct="yes">Yamaha</choice>
 <choice>Suzuki</choice>
+<choice correct="yes">Yamaha</choice>
 <choice>Honda</choice>
 </choices>
 </question>
 <question id="10">
-<wording>¿Qué coche japonés tiene el sistema “Symmetrical AWD”?</wording>
+<wording>¿Qué coche japonés tiene el sistema “AWD simétrico”?</wording>
 <choices>
-<choice>Mitsubishi</choice>
 <choice correct="yes">Subaru</choice>
+<choice>Mitsubishi</choice>
 <choice>Nissan</choice>
 </choices>
 </question>
 <question id="11">
-<wording>¿Qué moto fue considerada “la reina de las superbikes” en los 90?</wording>
+<wording>¿Qué motocicleta fue llamada la “reina de las superbikes” en los años 90?</wording>
 <choices>
-<choice>Honda Fireblade</choice>
 <choice>Suzuki Hayabusa</choice>
+<choice>Honda Fireblade</choice>
 <choice correct="yes">Kawasaki ZZR1100</choice>
 </choices>
 </question>
 <question id="12">
-<wording>¿Qué coche japonés usa tecnología híbrida de forma masiva desde los años 2000?</wording>
+<wording>¿Qué coche japonés ha usado ampliamente tecnología híbrida desde los años 2000?</wording>
 <choices>
-<choice correct="yes">Toyota Prius</choice>
-<choice>Honda Civic</choice>
 <choice>Nissan Sentra</choice>
+<choice>Honda Civic</choice>
+<choice correct="yes">Toyota Prius</choice>
 </choices>
 </question>
 <question id="13">
-<wording>¿Cuál fue la primera moto japonesa en ganar un campeonato mundial?</wording>
+<wording>¿Cuál fue la primera motocicleta japonesa en ganar un campeonato mundial?</wording>
 <choices>
 <choice correct="yes">Honda RC143</choice>
-<choice>Yamaha YZF-R6</choice>
 <choice>Suzuki Katana</choice>
+<choice>Yamaha YZF-R6</choice>
 </choices>
 </question>
 <question id="14">
 <wording>¿En qué año debutó el Honda NSX original?</wording>
 <choices>
-<choice correct="yes">1990</choice>
 <choice>1999</choice>
 <choice>1984</choice>
+<choice correct="yes">1990</choice>
 </choices>
 </question>
 <question id="15">
-<wording>¿Qué empresa japonesa popularizó la tracción total en rally con el WRX STI?</wording>
+<wording>¿Qué marca japonesa popularizó la tracción total en rally con el WRX STI?</wording>
 <choices>
-<choice correct="yes">Subaru</choice>
-<choice>Mazda</choice>
 <choice>Toyota</choice>
+<choice>Subaru</choice>
+<choice correct="yes">Subaru</choice>
 </choices>
 </question>
 <question id="16">
-<wording>¿Qué marca japonesa fabrica la línea “V-Star” de motos tipo cruiser?</wording>
+<wording>¿Qué marca japonesa fabrica las motocicletas tipo cruiser “V-Star”?</wording>
 <choices>
-<choice correct="yes">Yamaha</choice>
 <choice>Honda</choice>
 <choice>Suzuki</choice>
+<choice correct="yes">Yamaha</choice>
 </choices>
 </question>
 <question id="17">
-<wording>¿Cuál es la filosofía detrás de los coches “kei” japoneses?</wording>
+<wording>¿Cuál es el concepto detrás de los coches “kei” japoneses?</wording>
 <choices>
-<choice>Velocidad extrema</choice>
 <choice correct="yes">Tamaño compacto y eficiencia</choice>
 <choice>Lujo y confort</choice>
+<choice>Velocidad extrema</choice>
 </choices>
 </question>
 <question id="18">
-<wording>¿Qué modelo de Suzuki es una de las motos más rápidas jamás fabricadas?</wording>
+<wording>¿Qué modelo de Suzuki es una de las motocicletas más rápidas jamás fabricadas?</wording>
 <choices>
-<choice>SV650</choice>
 <choice>GSX-R1000</choice>
 <choice correct="yes">Hayabusa</choice>
+<choice>SV650</choice>
 </choices>
 </question>
 <question id="19">
-<wording>¿Qué coche japonés es famoso por su participación en el drifting y tiene tracción trasera?</wording>
+<wording>¿Qué coche japonés es famoso por el drifting y tiene tracción trasera?</wording>
 <choices>
-<choice correct="yes">Toyota AE86</choice>
 <choice>Honda CR-V</choice>
 <choice>Nissan Leaf</choice>
+<choice correct="yes">Toyota AE86</choice>
 </choices>
 </question>
 <question id="20">
-<wording>¿Qué marca japonesa produjo la primera moto deportiva de 600cc?</wording>
+<wording>¿Qué marca japonesa produjo la primera motocicleta deportiva de 600cc?</wording>
 <choices>
-<choice correct="yes">Honda</choice>
 <choice>Kawasaki</choice>
+<choice correct="yes">Honda</choice>
 <choice>Yamaha</choice>
 </choices>
 </question>
