@@ -15,12 +15,11 @@ h1 {
 
 #menuPrincipal, #cuestionario {
   max-width: 720px;
-  margin: auto;
+  margin: 60px auto 40px;
   padding: 30px;
   background-color: #ffffff; /* Fondo claro */
   border-radius: 14px;
   box-shadow: 0 4px 20px rgba(122, 92, 56, 0.15); /* Sombra elegante */
-  margin-top: 60px;
 }
 
 select, button {
@@ -54,6 +53,7 @@ button:hover, select:hover {
   max-width: 80%;
   border: 1px solid #dbcbb6;
   transition: background-color 0.3s, border 0.3s;
+  user-select: none;
 }
 
 .opcion:hover {
@@ -62,61 +62,65 @@ button:hover, select:hover {
 
 .opcion.selected {
   background-color: #d4c2a5;
-  border: 2px solid #7a5c38;
+  border-color: #a88b5d;
+  color: #3e2e10;
+  font-weight: 600;
 }
 
-/* Respuesta correcta */
 .opcion.correcta {
-  background-color: #d9f2d9; /* Verde claro elegante */
-  border: 2px solid #4caf50; /* Verde sobrio */
-  color: #2e7d32; /* Texto verde oscuro */
+  background-color: #a4c896; /* Verde suave para correcta */
+  border-color: #6a9c5a;
+  color: #2e4e14;
+  font-weight: 700;
 }
 
-/* Respuesta incorrecta */
 .opcion.incorrecta {
-  background-color: #fcebea; /* Rojo claro */
-  border: 2px solid #e53935; /* Rojo elegante */
-  color: #b71c1c; /* Texto rojo oscuro */
-}
-
-.botones-superiores {
-  display: flex;
-  justify-content: space-between;
-  max-width: 300px;
-  margin: 30px auto 10px;
-  gap: 10px;
-}
-
-.boton-final {
-  text-align: center;
-  margin-top: 10px;
-}
-
-button {
-  padding: 12px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  background-color: #d4c2a5;
-  color: #4e3e28;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #c7b08a;
-}
-
-button.oculto {
-  display: none;
+  background-color: #d87a7a; /* Rojo suave para incorrecta */
+  border-color: #a64545;
+  color: #5a1a1a;
+  font-weight: 700;
 }
 
 .oculto {
-  display: none;
+  display: none !important;
 }
 
-.tituloprincipal {
-  max-width: 350px;
-  border-color: #4e3e28;
-  text-align: left;
+#tiempo {
+  font-size: 1.1em;
+  margin: 15px 0;
+  color: #7a5c38;
+  font-weight: 600;
+}
+
+#puntuacion {
+  font-size: 1.5em;
+  margin-top: 20px;
+  color: #4e3e28;
+  font-weight: 700;
+}
+
+/* Botones principales */
+button {
+  min-width: 140px;
+  box-shadow: 0 2px 8px rgba(122, 92, 56, 0.3);
+}
+
+button:disabled {
+  cursor: default;
+  background-color: #e1d7c2;
+  color: #a3957b;
+  box-shadow: none;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  #menuPrincipal, #cuestionario {
+    margin: 30px 10px;
+    padding: 20px;
+  }
+  
+  .opcion {
+    max-width: 95%;
+    font-size: 1em;
+  }
 }
