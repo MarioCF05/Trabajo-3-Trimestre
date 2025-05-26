@@ -61,4 +61,62 @@ button:hover, select:hover {
 }
 
 .opcion.selected {
-  background
+  background-color: #d4c2a5;
+  border: 2px solid #7a5c38;
+}
+
+/* Respuesta correcta */
+.opcion.correcta {
+  background-color: #d9f2d9; /* Verde claro elegante */
+  border: 2px solid #4caf50; /* Verde sobrio */
+  color: #2e7d32; /* Texto verde oscuro */
+}
+
+/* Respuesta incorrecta */
+.opcion.incorrecta {
+  background-color: #fcebea; /* Rojo claro */
+  border: 2px solid #e53935; /* Rojo elegante */
+  color: #b71c1c; /* Texto rojo oscuro */
+}
+
+.botones-superiores {
+  display: flex;
+  justify-content: space-between;
+  max-width: 300px;
+  margin: 30px auto 10px;
+  gap: 10px;
+}
+
+.boton-final {
+  text-align: center;
+  margin-top: 10px;
+}
+
+button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #d4c2a5;
+  color: #4e3e28;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #c7b08a;
+}
+
+button.oculto {
+  display: none;
+}
+
+.oculto {
+  display: none;
+}
+
+.tituloprincipal {
+  max-width: 350px;
+  border-color: #4e3e28;
+  text-align: left;
+}
