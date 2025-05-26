@@ -1,22 +1,17 @@
-// Variables globales para controlar estado del cuestionario, puntuación y tiempo
-let documentoXML, preguntas, actual = 0; 
+// Variables globales para controlar estado del cuestionario
+let documentoXML, preguntas, actual = 0;
 let puntuacion = 0, tiempo = 0, temporizador;
 let cuestionarioActivo = false;
 let respuestaSeleccionada = null;
 
-// Función para dar formato legible al tiempo (minutos y segundos)
+// Función para formatear tiempo en minutos y segundos (ej: 2m 08s)
 function formatearTiempo(segundos) {
   const mins = Math.floor(segundos / 60);
   const segs = segundos % 60;
   return `${mins}m ${segs < 10 ? '0' : ''}${segs}s`;
 }
 
-// Muestra el estado actualizado (tiempo transcurrido) en la interfaz
-function actualizarEstado(puntos = 0, segundos = 0) {
-  document.getElementById("tiempo").innerText = `Tiempo: ${formatearTiempo(segundos)}`;
-}
-
-// Inicia el temporizador que aumenta el contador de tiempo cada segundo
+// Inicia el temporizador que actualiza el tiempo cada segundo
 function iniciarTemporizador() {
   temporizador = setInterval(() => {
     tiempo++;
@@ -24,39 +19,37 @@ function iniciarTemporizador() {
   }, 1000);
 }
 
-// Muestra u oculta botones de navegación según el momento del cuestionario
+// Controla la visibilidad de los botones según parámetros
 function mostrarBotones({siguiente = true, corregir = true, finalizar = true} = {}) {
-  document.getElementById("botonSiguiente").classList.toggle("oculto", !siguiente);
-  document.getElementById("botonCorregir").classList.toggle("oculto", !corregir);
-  document.getElementById("botonFinalizar").classList.toggle("oculto", !finalizar);
+  document.getElementById("botonSiguiente").style.display = siguiente ? "inline-block" : "none";
+  document.getElementById("botonCorregir").style.display = corregir ? "inline-block" : "none";
+  document.getElementById("botonFinalizar").style.display = finalizar ? "inline-block" : "none";
 }
 
-// Reinicia el cuestionario a su estado inicial (contador, respuestas, etc.)
+// Reinicia variables para empezar un nuevo cuestionario
 function reiniciarCuestionario() {
   actual = 0;
   puntuacion = 0;
   tiempo = 0;
   respuestaSeleccionada = null;
-  actualizarEstado();
 }
 
-// Comienza el cuestionario: oculta el menú, carga preguntas, inicia temporizador
+// Función principal para iniciar el cuestionario desde el menú principal
 function iniciarCuestionario() {
-  document.getElementById("menuPrincipal").style.display = "none";
-  document.getElementById("cuestionario").style.display = "block";
-  document.getElementById("tiempo").style.display = "";
-
+  document.getElementById("menuPrincipal").style.display = "none";  // Oculta menú
+  document.getElementById("cuestionario").style.display = "block";  // Muestra cuestionario
+  document.getElementById("puntuacion").style.display = "none";     // Oculta puntuación inicial
+  reiniciarCuestionario();
   cargarPreguntas(() => {
     cuestionarioActivo = true;
-    reiniciarCuestionario();
     iniciarTemporizador();
     mostrarPregunta();
   });
 }
 
-// Carga el archivo XML correspondiente al idioma seleccionado y extrae las preguntas
+// Carga el archivo XML seleccionado y extrae las preguntas
 function cargarPreguntas(callback) {
-  const archivo = document.getElementById("idioma").value;
+  const archivo = document.getElementById("idioma").value; // idioma = archivo XML
   const xhttp = new XMLHttpRequest();
   xhttp.onload = function () {
     documentoXML = this.responseXML;
@@ -67,106 +60,112 @@ function cargarPreguntas(callback) {
   xhttp.send();
 }
 
-// Muestra la pregunta actual y sus opciones en pantalla
+// Muestra la pregunta actual con sus opciones en pantalla
 function mostrarPregunta() {
   const pregunta = preguntas[actual];
   if (!pregunta) return;
 
+  // Saber si es la última pregunta para controlar botones
   const esUltima = actual === preguntas.length - 1;
   mostrarBotones({siguiente: !esUltima, corregir: true, finalizar: true});
 
-  const opciones = document.querySelectorAll(".opcion");
-  opciones.forEach(op => op.classList.remove("correcta", "incorrecta", "selected"));
+  respuestaSeleccionada = null; // Reinicia selección de respuesta
 
+  // Extrae el texto del enunciado
   const enunciado = pregunta.getElementsByTagName("wording")[0].textContent;
   const opcionesElementos = pregunta.getElementsByTagName("choice");
 
   let html = `<h3>${actual + 1}. ${enunciado}</h3>`;
 
+  // Genera los divs con las opciones, cada una con su función onclick
   for (let i = 0; i < opcionesElementos.length; i++) {
-    html += `<div class="opcion" onclick="seleccionarRespuesta(this, ${opcionesElementos[i].getAttribute("correct") === "yes"})">${opcionesElementos[i].textContent}</div>`;
+    const texto = opcionesElementos[i].textContent;
+    const esCorrecta = opcionesElementos[i].getAttribute("correct") === "yes";
+    html += `<div class="opcion" onclick="seleccionarRespuesta(this, ${esCorrecta})">${texto}</div>`;
   }
 
+  // Inserta las opciones en el contenedor del cuestionario
   document.getElementById("contenedorPreguntas").innerHTML = html;
 }
 
-// Marca la opción que el usuario ha seleccionado
+// Marca la opción seleccionada y guarda si es correcta o no
 function seleccionarRespuesta(elemento, esCorrecta) {
+  // Deselecciona cualquier opción previamente seleccionada
   const opciones = document.querySelectorAll(".opcion");
-  opciones.forEach(op => op.classList.remove("selected"));
+  opciones.forEach(op => {
+    op.classList.remove("selected", "correcta", "incorrecta");
+  });
 
+  // Marca la opción clicada como seleccionada
   elemento.classList.add("selected");
   respuestaSeleccionada = { elemento, esCorrecta };
 }
 
-// Corrige la respuesta seleccionada: muestra si es correcta o no y resalta la correcta
+// Corrige la respuesta seleccionada, mostrando colores y ajustando puntuación
 function corregirPregunta() {
-  if (respuestaSeleccionada === null) return;
+  if (!respuestaSeleccionada) {
+    alert("Por favor, selecciona una respuesta antes de corregir.");
+    return;
+  }
 
   const opciones = document.querySelectorAll(".opcion");
 
-  if (!respuestaSeleccionada.esCorrecta) {
+  if (respuestaSeleccionada.esCorrecta) {
+    // Si es correcta, pinta en verde y suma puntuación
+    respuestaSeleccionada.elemento.classList.add("correcta");
+    puntuacion++;
+  } else {
+    // Si es incorrecta, pinta en rojo la seleccionada
+    respuestaSeleccionada.elemento.classList.add("incorrecta");
+    // Además marca la opción correcta en verde
     opciones.forEach(op => {
-      if (op.textContent === obtenerRespuestaCorrecta()) {
-        op.classList.add("correcta");
+      if (!op.classList.contains("selected")) {
+        // Compara el texto con la opción correcta del XML
+        const pregunta = preguntas[actual];
+        const opcionesElementos = pregunta.getElementsByTagName("choice");
+        for (let i = 0; i < opcionesElementos.length; i++) {
+          if (opcionesElementos[i].getAttribute("correct") === "yes" && opcionesElementos[i].textContent === op.textContent) {
+            op.classList.add("correcta");
+          }
+        }
       }
     });
-    respuestaSeleccionada.elemento.classList.add("incorrecta");
-  } else {
-    respuestaSeleccionada.elemento.classList.add("correcta");
   }
 
+  // Deshabilita clics en opciones para evitar cambios tras corregir
   opciones.forEach(op => op.onclick = null);
+  // Muestra botón "Siguiente" y oculta "Corregir"
+  document.getElementById("botonCorregir").style.display = "none";
+  document.getElementById("botonSiguiente").style.display = "inline-block";
 }
 
-// Devuelve el texto de la respuesta correcta para la pregunta actual
-function obtenerRespuestaCorrecta() {
-  const opciones = preguntas[actual].getElementsByTagName("choice");
-  for (let i = 0; i < opciones.length; i++) {
-    if (opciones[i].getAttribute("correct") === "yes") {
-      return opciones[i].textContent;
-    }
-  }
-}
-
-// Avanza a la siguiente pregunta si existe, y reinicia la selección
+// Muestra la siguiente pregunta o finaliza si no hay más
 function mostrarSiguiente() {
-  if (respuestaSeleccionada && respuestaSeleccionada.esCorrecta) {
-    puntuacion++;
-  }
-
   actual++;
   if (actual < preguntas.length) {
-    respuestaSeleccionada = null;
     mostrarPregunta();
+    // Después de avanzar, muestra "Corregir" y oculta "Siguiente"
+    document.getElementById("botonCorregir").style.display = "inline-block";
+    document.getElementById("botonSiguiente").style.display = "none";
+  } else {
+    finalizarCuestionario();
   }
 }
 
-// Finaliza el cuestionario: detiene temporizador, muestra puntuación y mensaje final
+// Finaliza el cuestionario, muestra puntuación y tiempo empleado
 function finalizarCuestionario() {
-  clearInterval(temporizador);
+  clearInterval(temporizador);  // Para temporizador
   cuestionarioActivo = false;
-
-  if (respuestaSeleccionada !== null && respuestaSeleccionada.esCorrecta) {
-    puntuacion++;
-  }
   document.getElementById("puntuacion").style.display = "block";
   document.getElementById("puntuacion").innerText = `Tu puntuación fue: ${puntuacion}/${preguntas.length}`;
   document.getElementById("tiempo").style.display = "none";
 
+  // Limpia el contenedor de preguntas y muestra mensaje final
   const contenedor = document.getElementById("contenedorPreguntas");
-  contenedor.innerHTML = `
-    <h2>Fin del cuestionario</h2>
-    <p>Tiempo empleado: ${formatearTiempo(tiempo)}</p>
-  `;
+  contenedor.innerHTML = `<h2>Fin del cuestionario</h2><p>Tiempo empleado: ${formatearTiempo(tiempo)}</p>`;
 
-  ["botonCorregir", "botonFinalizar"].forEach(id => {
-    const btn = document.getElementById(id);
-    if (btn) btn.style.display = "none";
-  });
-
-  const btnSiguiente = document.getElementById("botonSiguiente");
-  btnSiguiente.textContent = "Reintentar cuestionario";
-  btnSiguiente.onclick = () => window.location.href = "index.html";
-  btnSiguiente.classList.remove("oculto");
+  // Oculta todos los botones
+  document.getElementById("botonCorregir").style.display = "none";
+  document.getElementById("botonSiguiente").style.display = "none";
+  document.getElementById("botonFinalizar").style.display = "none";
 }
