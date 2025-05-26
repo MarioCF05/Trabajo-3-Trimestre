@@ -15,7 +15,7 @@ function actualizarEstado(puntos = 0, segundos = 0) {
   document.getElementById("tiempo").innerText = `Tiempo: ${formatearTiempo(segundos)}`;
 }
 
-// ⏳ Inicia el temporizador del cuestionario
+// Inicia el temporizador del cuestionario
 function iniciarTemporizador() {
   temporizador = setInterval(() => {
     tiempo++;
@@ -123,7 +123,7 @@ function corregirPregunta() {
   opciones.forEach(op => op.style.pointerEvents = "none");
 }
 
-// 🔍 Devuelve el texto de la respuesta correcta actual
+// Devuelve el texto de la respuesta correcta actual
 function obtenerRespuestaCorrecta() {
   const opciones = preguntas[actual].getElementsByTagName("choice");
   for (let i = 0; i < opciones.length; i++) {
